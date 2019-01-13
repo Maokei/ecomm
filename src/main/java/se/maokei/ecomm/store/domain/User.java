@@ -31,6 +31,21 @@ public class User extends BaseEntity implements UserDetails {
 
     //private ShoppingCart shoppingCart;
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -77,16 +92,6 @@ public class User extends BaseEntity implements UserDetails {
         Set<GrantedAuthority> authorities = new HashSet<>();
         userRoles.forEach(ur -> authorities.add(new Authority(ur.getRole().getName())));
         return authorities;
-    }
-
-    @Override
-    public String getPassword() {
-        return this.password;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.username;
     }
 
     @Override
