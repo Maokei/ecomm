@@ -1,17 +1,22 @@
 package se.maokei.ecomm.store.domain.security;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+//@Table(name = "role")
 public class Role implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @NotNull
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int roleId;
 
+    @Column(unique=true, nullable=false)
     private String name;
 
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

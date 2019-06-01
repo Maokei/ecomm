@@ -4,12 +4,14 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @MappedSuperclass
-public class BaseEntity implements Serializable {
+public abstract class BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="Id", nullable=false, updatable=false)
+    @Column(name = "Id", nullable = false, updatable = false)
     private Long id;
 
+    Long getId() { return id; }
+    void setId(Long id) { this.id = id; }
 }

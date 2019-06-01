@@ -2,7 +2,14 @@ package se.maokei.ecomm.store.domain.security;
 
 import se.maokei.ecomm.store.domain.User;
 
-import javax.persistence.*;
+import javax.persistence.Table;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 @Entity
@@ -14,11 +21,12 @@ public class UserRole implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userRoleId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id")
     private Role role;
 
     public UserRole() {

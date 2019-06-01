@@ -11,7 +11,7 @@ import se.maokei.ecomm.store.domain.User;
 import se.maokei.ecomm.store.repository.UserRepository;
 
 @Service
-public class UserSecurityService implements UserDetailsService{
+public class UserSecurityService implements UserDetailsService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserSecurityService.class);
     @Autowired
     private UserRepository userRepository;

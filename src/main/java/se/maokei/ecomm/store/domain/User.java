@@ -10,22 +10,23 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Entity
 public class User extends BaseEntity implements UserDetails {
-
     private String username;
     private String password;
     private String firstName;
     private String lastName;
     private String email;
     private String phone;
-    private boolean enabled = true;
+    private boolean enabled;
 
-    @OneToMany(mappedBy = "user", cascade= CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<UserRole> userRoles = new HashSet<>();
 
@@ -79,6 +80,10 @@ public class User extends BaseEntity implements UserDetails {
         this.phone = phone;
     }
 
+    public void setEnabled(boolean enabled) { this.enabled = enabled; }
+
+    public boolean getEnabled() { return enabled; }
+
     public Set<UserRole> getUserRoles() {
         return userRoles;
     }
@@ -112,5 +117,15 @@ public class User extends BaseEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return this.enabled;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
