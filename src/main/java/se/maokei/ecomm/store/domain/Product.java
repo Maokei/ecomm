@@ -1,6 +1,5 @@
 package se.maokei.ecomm.store.domain;
 
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @Entity
-public class Category extends BaseEntity {
+public class Product extends BaseEntity {
   @NotNull
   private String name;
 }

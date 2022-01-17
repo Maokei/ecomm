@@ -13,6 +13,7 @@ import se.maokei.ecomm.store.repository.UserRepository;
 @Service
 public class UserSecurityService implements UserDetailsService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserSecurityService.class);
+
     @Autowired
     private UserRepository userRepository;
 
@@ -20,7 +21,7 @@ public class UserSecurityService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findUserByUsername(username);
         if(user == null) {
-            LOGGER.warn("Username not found {}", user);
+            LOGGER.warn("Username not found {}", username);
             throw new UsernameNotFoundException("Username " + username + "not found");
         }
         return user;

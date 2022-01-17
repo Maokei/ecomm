@@ -13,11 +13,13 @@ import se.maokei.ecomm.store.repository.UserRepository;
 import se.maokei.ecomm.store.services.UserService;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
+
     @Autowired
     UserRepository userRepository;
 
@@ -46,5 +48,10 @@ public class UserServiceImpl implements UserService {
         }
 
         return localUser;
+    }
+
+    @Override
+    public Optional<User> getUserById(long id) {
+        return userRepository.findById(id);
     }
 }

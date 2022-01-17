@@ -6,31 +6,40 @@ import org.springframework.security.core.userdetails.UserDetails;
 import se.maokei.ecomm.store.domain.security.Authority;
 import se.maokei.ecomm.store.domain.security.UserRole;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import java.io.Serializable;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 
 @Entity
+@Table
 public class User extends BaseEntity implements UserDetails {
+    @Column
+    @NotBlank(message = "Username is mandatory")
     private String username;
+    @Column
+    @NotBlank(message = "Password is mandatory")
     private String password;
+    @Column
+    @NotBlank(message = "First name is mandatory")
     private String firstName;
+    @Column
+    @NotBlank(message = "Last name is mandatory")
     private String lastName;
+    @Column
+    @NotBlank(message = "Email is mandatory")
     private String email;
+    @Column
     private String phone;
+    @Column
     private boolean enabled;
 
     @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<UserRole> userRoles = new HashSet<>();
-
-    //private ShoppingCart shoppingCart;
 
     public void setPassword(String password) {
         this.password = password;

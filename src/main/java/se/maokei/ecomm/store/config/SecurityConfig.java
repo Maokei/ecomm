@@ -1,15 +1,14 @@
 package se.maokei.ecomm.store.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.session.web.http.HeaderHttpSessionIdResolver;
-import org.springframework.session.web.http.HttpSessionIdResolver;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
 import se.maokei.ecomm.store.services.UserSecurityService;
 
 @Configuration
@@ -19,28 +18,37 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private Environment environment;
 
     @Autowired
+    PasswordEncoder passwordEncoder;
+
+    @Autowired
     private UserSecurityService userSecurityService;
     private static final String[] PUBLIC_MATCHES = {
-            "/css/**", "/js/**","/image/**","/product/**","/book/**", "/user/**"
-
+            "/css/**", "/js/**","/image/**","/product/**", "/user/**"
     };
 
     public SecurityConfig() {
 
     }
 
-    private BCryptPasswordEncoder passwordEncoder() {
-        return SecurityUtility.passwordEncoder();
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .antMatchers("/", "/home", "/h2", "/all", "/rest").permitAll()
+                .and().csrf().ignoringAntMatchers("/h2/**")
+                .and().headers().frameOptions().sameOrigin();
     }
 
-     @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().cors().disable().httpBasic().and().authorizeRequests()
-                .antMatchers(PUBLIC_MATCHES).permitAll().anyRequest().authenticated();
-     }
+    /*private BCryptPasswordEncoder passwordEncoder() {
+        return SecurityUtility.passwordEncoder();
+    }*/
 
-    @Bean
-    public HttpSessionIdResolver httpSessionIdResolver() {
-        return HeaderHttpSessionIdResolver.xAuthToken();
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .inMemoryAuthentication()
+                .withUser("user").password(
+                        passwordEncoder.encode("password")
+                ).roles("USER");
     }
 }

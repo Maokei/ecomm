@@ -3,8 +3,8 @@ package se.maokei.ecomm.store;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import se.maokei.ecomm.store.config.SecurityUtility;
 import se.maokei.ecomm.store.domain.User;
 import se.maokei.ecomm.store.domain.security.Role;
 import se.maokei.ecomm.store.domain.security.UserRole;
@@ -31,6 +31,9 @@ public class DataInitializer {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
 
     @EventListener(value = ApplicationReadyEvent.class)
@@ -72,7 +75,7 @@ public class DataInitializer {
         user1.setFirstName("Steve");
         user1.setLastName("Underwood");
         user1.setUsername("monarc");
-        user1.setPassword(SecurityUtility.passwordEncoder().encode("test123"));
+        user1.setPassword(passwordEncoder.encode("test123"));
         user1.setEmail("tester@gmail.com");
 
         Set<UserRole> userRoles = new HashSet<>();
@@ -90,7 +93,7 @@ public class DataInitializer {
         user2.setFirstName("admin");
         user2.setLastName("admin");
         user2.setUsername("admin");
-        user2.setPassword(SecurityUtility.passwordEncoder().encode("admin123"));
+        user2.setPassword(passwordEncoder.encode("admin123"));
         user2.setEmail("admin@gmail.com");
         Role role2 = new Role();
         //role2.setRoleId(0);

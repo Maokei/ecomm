@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class Authority implements GrantedAuthority, Serializable {
     private static final long serialVersionUID = 1L;
-    private String authority;
+    private final String authority;
 
     public Authority(String authority) {
         this.authority = authority;

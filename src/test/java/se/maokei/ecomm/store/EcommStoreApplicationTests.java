@@ -9,6 +9,5 @@ public class EcommStoreApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
-
 }
 
