@@ -4,10 +4,11 @@ import org.springframework.data.repository.CrudRepository;
 import se.maokei.ecomm.store.domain.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository extends CrudRepository<User, Long> {
-    User findUserByEmail(String email);
-    User findUserByUsername(String username);
-    User findUserById(long id);
+    Optional<User> findUserByEmail(String email);
+    Optional<User> findUserByUsername(String username);
+    Optional<User> findById(long id);
     List<User> findAll();
 }

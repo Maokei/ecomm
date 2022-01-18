@@ -1,19 +1,21 @@
 package se.maokei.ecomm.store.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import se.maokei.ecomm.store.domain.security.Authority;
 import se.maokei.ecomm.store.domain.security.UserRole;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-
+@NoArgsConstructor
 @Entity
 @Table
 public class User extends BaseEntity implements UserDetails {
@@ -29,8 +31,9 @@ public class User extends BaseEntity implements UserDetails {
     @Column
     @NotBlank(message = "Last name is mandatory")
     private String lastName;
-    @Column
+    @Column(unique=true)
     @NotBlank(message = "Email is mandatory")
+    @Email(message = "Invalid Email format")
     private String email;
     @Column
     private String phone;

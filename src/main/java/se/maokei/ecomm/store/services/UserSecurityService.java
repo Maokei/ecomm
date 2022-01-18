@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import se.maokei.ecomm.store.domain.User;
 import se.maokei.ecomm.store.repository.UserRepository;
 
 @Service
@@ -19,11 +18,9 @@ public class UserSecurityService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findUserByUsername(username);
-        if(user == null) {
+        return userRepository.findUserByUsername(username).orElseThrow(() -> {
             LOGGER.warn("Username not found {}", username);
-            throw new UsernameNotFoundException("Username " + username + "not found");
-        }
-        return user;
+            return new UsernameNotFoundException("Username " + username + "not found");
+        });
     }
 }

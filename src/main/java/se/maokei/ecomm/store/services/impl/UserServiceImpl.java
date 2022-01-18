@@ -27,27 +27,26 @@ public class UserServiceImpl implements UserService {
     RoleRepository roleRepository;
 
     @Transactional
-    public User createUser(User user, Set<UserRole> userRoles) {
-        User localUser = userRepository.findUserByUsername(user.getUsername());
+    public Optional<User> createUser(User user, Set<UserRole> userRoles) {
+        Optional<User> userOpt = userRepository.findUserByEmail(user.getEmail());
 
-        if(localUser != null) {
-            LOGGER.info("A user with the username {} already exists.", user.getUsername());
+        if(userOpt.isPresent()) {
+            LOGGER.info("A user with the email {} already exists.", user.getEmail());
         }else{
             Set<UserRole> localUserRoles = new HashSet<>();
             for(UserRole ur : userRoles) {
-                //roleRepository.save(ur.getRole());
                 Role role = roleRepository.findRoleByName(ur.getRole().getName());
                 if(role != null)
                     localUserRoles.add(new UserRole(user, role));
             }
             //user.getUserRoles().addAll(userRoles);
             //user.setUserRoles(userRoles);
-            user.setEnabled(true);
+            user.setEnabled(false);
             user.setUserRoles(localUserRoles);
-            localUser = userRepository.save(user);
+            return Optional.of(userRepository.save(user));
         }
 
-        return localUser;
+        return userOpt;
     }
 
     @Override

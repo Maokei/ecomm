@@ -7,6 +7,6 @@ import java.util.Optional;
 import java.util.Set;
 
 public interface UserService {
-    User createUser(User user, Set<UserRole> userRoles);
+    Optional<User> createUser(User user, Set<UserRole> userRoles);
     Optional<User> getUserById(long id);
 }
