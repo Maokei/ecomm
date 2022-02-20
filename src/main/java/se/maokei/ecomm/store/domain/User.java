@@ -24,6 +24,7 @@ public class User extends BaseEntity implements UserDetails {
     private String username;
     @Column
     @NotBlank(message = "Password is mandatory")
+    @JsonIgnore
     private String password;
     @Column
     @NotBlank(message = "First name is mandatory")
