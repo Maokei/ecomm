@@ -12,3 +12,10 @@ Spring boot java e-commerce project.
 - Docker-compose
 
 ## Domain
+
+## Docker
+
+Build and run:
+```
+docker run --rm -it $(docker build -q .)
+```
