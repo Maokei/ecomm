@@ -8,16 +8,19 @@
 <body>
 <header th:replace="fragments/general.html :: header"></header>
 <main class="form-login">
-    <form>
+    <form th:object="${LoginCommand}" th:action="@{/login}" method="post">
         <!--img class="mb-4" src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"-->
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
+        <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+            <p th:text="#{LoginCommand.hasErrors}">Error message</p>
+        </div>
         <div class="form-floating">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" th:field="*{email}">
             <label for="floatingInput">Email address</label>
         </div>
         <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password" th:field="*{password}">
             <label for="floatingPassword">Password</label>
         </div>
 
