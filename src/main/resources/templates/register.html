@@ -7,8 +7,73 @@
 </head>
 <body>
 <header th:replace="fragments/general.html :: header"></header>
-<div>
-    register
+<div class="container">
+    <main>
+        <div class="py-5 text-center">
+            <h2>Register</h2>
+        </div>
+        <div class="">
+            <form>
+                <div class="mb-3">
+                    <label for="usernameInput" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="usernameInput">
+                </div>
+                <div class="mb-3">
+                    <label for="firstNameInput" class="form-label">First name</label>
+                    <input type="text" class="form-control" id="firstNameInput">
+                </div>
+                <div class="mb-3">
+                    <label for="lastNameInput" class="form-label">Last name</label>
+                    <input type="text" class="form-control" id="lastNameInput">
+                </div>
+                <div class="mb-3">
+                    <label for="phoneInput" class="form-label">Phone</label>
+                    <input type="text" class="form-control" id="phoneInput">
+                </div>
+                <div class="mb-3">
+                    <label for="emailInput" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp">
+                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="inputPassword6" class="col-form-label">Password</label>
+                    <div class="col-auto">
+                        <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+                    </div>
+                    <div class="col-auto">
+                <span id="passwordHelpInline" class="form-text">Must be 4-20 characters long.</span>
+                    </div>
+                </div>
+                <div class="form-check d-flex justify-content-center mb-4">
+                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
+                    <label class="form-check-label" for="form2Example33">
+                        Subscribe to our newsletter
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block mb-4">Sign up</button>
+
+                <div class="text-center">
+                    <p>or sign up with:</p>
+                    <button type="button" class="btn btn-primary btn-floating mx-1">
+                        <i class="fab fa-facebook-f"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-primary btn-floating mx-1">
+                        <i class="fab fa-google"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-primary btn-floating mx-1">
+                        <i class="fab fa-twitter"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-primary btn-floating mx-1">
+                        <i class="fab fa-github"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
 </div>
 <script type="text/javascript" th:src="@{/js/main.js}"></script>
 </body>
